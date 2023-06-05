@@ -1,7 +1,7 @@
 # API Documentation
 
 ## Overview
-The purpose of this api is to provide RESTful functionality for 
+The purpose of this api is to provide RESTful functionality for Yuck-or-Yum. The api is built using Node.js, Express, and PostgreSQL.
 
 ## Base URL
 
@@ -69,6 +69,22 @@ Body:
     "about": "Found this pic on the internet",
     "name": "Ugly Boyga"
 }
+```
+
+<br>
+
+### Delete
+
+This will delete a meal card in the database.
+
+#### Request Example
+
+```
+DELETE /mealCards/:id
+
+Body:
+
+<none>
 ```
 
 <br>
