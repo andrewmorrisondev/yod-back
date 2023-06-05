@@ -12,4 +12,7 @@ router.use(decodeUserFromToken)
 router.get('/', checkAuth, profilesCtrl.index)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 
+router.post('/:id/likedMeals/:mealCardId', checkAuth, profilesCtrl.associateLikedMealCards)
+router.post('/:id/passedMeals/:mealCardId', checkAuth, profilesCtrl.associatePassedMealCards)
+
 module.exports = router
