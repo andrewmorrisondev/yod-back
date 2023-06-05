@@ -3,7 +3,7 @@ const { MealCard } = require('../models')
 async function create(req, res) {
   try {
     const mealCard = await MealCard.create({ ...req.body, creatorId: req.user.id })
-    res.status(200).json(mealCard)
+    res.status(201).json(mealCard)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

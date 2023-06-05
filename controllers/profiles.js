@@ -1,4 +1,4 @@
-const { Profile } = require('../models')
+const { Profile, LikedMeals, PassedMeals } = require('../models')
 const cloudinary = require('cloudinary').v2
 
 async function index(req, res) {
@@ -30,4 +30,33 @@ async function addPhoto(req, res) {
   }
 }
 
-module.exports = { index, addPhoto }
+async function associateLikedMealCards(req, res) {
+  try {
+    const { id, mealCardId } = req.params
+    const association = await LikedMeals.create({ swiperId: id, mealCardId: mealCardId })
+    res.status(200).json(association)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+async function associatePassedMealCards(req, res) {
+  try {
+    const { id, mealCardId } = req.params
+    const association = await PassedMeals.create({ swiperId: id, mealCardId: mealCardId })
+    res.status(200).json(association)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+
+
+module.exports = { 
+  index, 
+  addPhoto,
+  associateLikedMealCards,
+  associatePassedMealCards
+}
