@@ -31,7 +31,9 @@ POST /mealCards
 {
     "name": "Scary Burger",
     "photo": "https://upload.wikimedia.org/wikipedia/",
-    "about": "Found this pic on the internet"
+    "about": "Found this pic on the internet",
+    "restaurantName": "Burger King",
+    "restaurantAddress": "1234 Burger King Way",
 }
 ```
 
@@ -67,7 +69,9 @@ Body:
 {
     "photo": "https://upload.wikimedia.org/wikipedia/",
     "about": "Found this pic on the internet",
-    "name": "Ugly Boyga"
+    "name": "Ugly Boyga",
+    "restaurantName": "Burger Queen",
+    "restaurantAddress": "1234 Burger Queen Way",
 }
 ```
 
