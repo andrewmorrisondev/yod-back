@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     photo: {
       type: DataTypes.STRING,
       allowNull: false,
-    },    
+    },
     about: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Profiles',
         key: 'id',
       },
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   }, {
     sequelize,
