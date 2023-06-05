@@ -36,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    resturantName: {
+      type: DataTypes.STRING,
+    },
+    resturantAddress: {
+      type: DataTypes.STRING,
+    },
   }, {
     sequelize,
     modelName: 'MealCard',
