@@ -1,4 +1,4 @@
-const { cloudinary } = require('cloudinary')
+const cloudinary = require('cloudinary').v2
 const { MealCard } = require('../models')
 
 async function create(req, res) {
@@ -21,17 +21,16 @@ async function index(req, res) {
 
 async function update(req, res) {
   try {
-    const { id } = req.params
-    const [updated] = await MealCard.update(req.body, {
-      where: { id: id }
-    })
-    if (updated) {
-      const updatedMealCard = await MealCard.findOne({ where: { id: id, creatorId: req.user.id } })
-      return res.status(200).json({ mealCard: updatedMealCard })
+    const mealCard = await MealCard.findByPk(req.params.id)
+    if (req.user.profile.id === mealCard.creatorId) {
+      mealCard.set(req.body)
+      await mealCard.save()
+      res.status(200).json(mealCard)
+    } else {
+      res.status(403).json({ message: 'Unauthorized' })
     }
-    throw new Error('MealCard not found')
   } catch (error) {
-    return res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message })
   }
 }
 
@@ -42,7 +41,7 @@ async function destroy(req, res) {
       where: { id: id }
     })
     if (deleted) {
-      return res.status(204).send("MealCard deleted")
+      return res.status(201).json({ message: "MealCard deleted" })
     }
     throw new Error("MealCard not found")
   } catch (error) {
@@ -50,27 +49,23 @@ async function destroy(req, res) {
   }
 }
 
-function addPhoto(req, res) {
+async function addPhoto(req, res) {
   const imageFile = req.files.photo.path
-  MealCard.findByPk(req.params.id)
-    .then(mealCard => {
-      cloudinary.uploader.upload(imageFile, { tags: 'mealCard' })
-        .then(image => {
-          mealCard.photo = image.url
-          mealCard.save()
-            .then((mealCard) => {
-              res.status(200).json(mealCard.photo)
-            })
-        })
-        .catch(err => {
-          console.log(err)
-          res.status(500).json({ error: err })
-        })
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({ error: err })
-    })
+  try {
+    const mealCard = await MealCard.findByPk(req.params.id)
+    if (!mealCard) {
+      throw new Error('MealCard not found')
+    }
+
+    const uploadResult = await cloudinary.uploader.upload(imageFile, { tags: 'mealCard' })
+    mealCard.photo = uploadResult.url
+    await mealCard.save()
+
+    res.status(200).json(mealCard.photo)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: error.message })
+  }
 }
 
 
