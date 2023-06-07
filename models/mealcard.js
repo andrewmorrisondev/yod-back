@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   MealCard.init({
     photo: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     about: {
       type: DataTypes.STRING,
