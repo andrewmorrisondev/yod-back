@@ -5,6 +5,7 @@ const middleware = require('../middleware/auth.js')
 const { decodeUserFromToken, checkAuth } = middleware
 
 /*---------- Public Routes ----------*/
+router.put('/:id/add-photo', mealCardsCtrl.addPhoto)
 
 
 /*---------- Protected Routes ----------*/
