@@ -13,6 +13,8 @@ router.get('/', checkAuth, profilesCtrl.index)
 router.get('/:id', checkAuth, profilesCtrl.show)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 
+router.get('/:id/likedMeals', checkAuth, profilesCtrl.getLikedMealCards)
+router.get('/:id/passedMeals', checkAuth, profilesCtrl.getPassedMealCards)
 router.post('/:id/likedMeals/:mealCardId', checkAuth, profilesCtrl.associateLikedMealCards)
 router.post('/:id/passedMeals/:mealCardId', checkAuth, profilesCtrl.associatePassedMealCards)
 
