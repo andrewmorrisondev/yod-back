@@ -1,4 +1,4 @@
-const { Profile, LikedMeals, PassedMeals } = require('../models')
+const { Profile, LikedMeals, PassedMeals, MealCard } = require('../models')
 const cloudinary = require('cloudinary').v2
 
 async function index(req, res) {
@@ -82,6 +82,28 @@ async function getPassedMealCards(req, res) {
   }
 }
 
+async function getFilteredMealCards(req, res) {
+  try {
+    const mealCards = await MealCard.findAll()
+    const passedMeals = await PassedMeals.findAll({ where: { swiperId: req.params.id }})
+    const likedMeals = await LikedMeals.findAll({ where: { swiperId: req.params.id }})
+
+    const passedMealsIds = passedMeals.map(meal => meal.mealCardId)
+    const likedMealsIds = likedMeals.map(meal => meal.mealCardId)
+
+    const filteredMealCards = mealCards.filter(meal => {
+      if (!passedMealsIds.includes(meal.id) && !likedMealsIds.includes(meal.id)) {
+        return meal
+      }
+    })
+
+    res.json(filteredMealCards)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
 module.exports = { 
   index,
   show,
@@ -89,5 +111,6 @@ module.exports = {
   associateLikedMealCards,
   associatePassedMealCards,
   getLikedMealCards,
-  getPassedMealCards
+  getPassedMealCards,
+  getFilteredMealCards,
 }
