@@ -62,12 +62,32 @@ async function associatePassedMealCards(req, res) {
   }
 }
 
+async function getLikedMealCards(req, res) {
+  try {
+    const likedMeals = await LikedMeals.findAll({ where: { swiperId: req.params.id }})
+    res.json(likedMeals)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
 
+async function getPassedMealCards(req, res) {
+  try {
+    const passedMeals = await PassedMeals.findAll({ where: { swiperId: req.params.id }})
+    res.json(passedMeals)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
 
 module.exports = { 
   index,
   show,
   addPhoto,
   associateLikedMealCards,
-  associatePassedMealCards
+  associatePassedMealCards,
+  getLikedMealCards,
+  getPassedMealCards
 }
