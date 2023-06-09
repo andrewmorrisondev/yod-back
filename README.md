@@ -1,4 +1,5 @@
-<h1>Yuck or Yum</h1>
+# [Yuk-or-Yum?](https://yuk-or-yum.netlify.app/)
+
 <a href="https://github.com/andrewmorrisondev/yod-front">
 frontend
 </a>
