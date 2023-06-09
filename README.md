@@ -109,7 +109,7 @@ This will sign up a new user.
 #### Request Example
 
 ```
-POST /auth/signup
+POST signup
 
 Body:
 
